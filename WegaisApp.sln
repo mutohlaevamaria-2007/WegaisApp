@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WegaisApp.WPF", "WegaisApp.WPF\WegaisApp.WPF.csproj", "{9CCD159D-20A9-4051-ACBB-B265EF68F2B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WegaisApp.Core", "WegaisApp.Core\WegaisApp.Core.csproj", "{1C8C9F0F-84F0-4B63-9918-E8B8830C893D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{754FC069-D67B-A9D7-50A1-8D1CA196D8F1}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		ReplyRestsShop_0e21bc71-ed87-4994-8e6b-d84d74bc364b.xml = ReplyRestsShop_0e21bc71-ed87-4994-8e6b-d84d74bc364b.xml
+		ReplyRests_v2-010xD40F23FA-E703-4D3E-8D2D-DB0525A2161E.xml = ReplyRests_v2-010xD40F23FA-E703-4D3E-8D2D-DB0525A2161E.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CCD159D-20A9-4051-ACBB-B265EF68F2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CCD159D-20A9-4051-ACBB-B265EF68F2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CCD159D-20A9-4051-ACBB-B265EF68F2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CCD159D-20A9-4051-ACBB-B265EF68F2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C8C9F0F-84F0-4B63-9918-E8B8830C893D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C8C9F0F-84F0-4B63-9918-E8B8830C893D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C8C9F0F-84F0-4B63-9918-E8B8830C893D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C8C9F0F-84F0-4B63-9918-E8B8830C893D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {206249F5-E764-4B3F-9381-FBD5C9EA7D5D}
+	EndGlobalSection
+EndGlobal
