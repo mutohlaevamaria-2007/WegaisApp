@@ -3,7 +3,7 @@
 namespace WegaisApp.Core.ViewModel
 {
     /// <summary>
-    /// Предствление таблицы для вывода на UI
+    /// Предствление для вывода на UI
     /// </summary>
     public class StockPositionInfo
     {
@@ -16,9 +16,9 @@ namespace WegaisApp.Core.ViewModel
         [DisplayName("Производитель")]
         public string? ProducerName { get; private set; }
         [DisplayName("Всего шт. на складе")]
-        public int Count { get; private set; }
+        public decimal Count { get; private set; }
 
-        public StockPositionInfo(string? name, decimal capacity, decimal alcVolume, string? producerName, int count)
+        public StockPositionInfo(string? name, decimal capacity, decimal alcVolume, string? producerName, decimal count)
         {
             Name = name;
             Capacity = capacity;
@@ -27,38 +27,35 @@ namespace WegaisApp.Core.ViewModel
             Count = count;
         }
 
-        //public static List<StockPositionInfo> SHIIT(WegaisDataBundle data)
-        //{
-        //    List<StockPositionInfo> result = new();
+        /// <summary>
+        /// Linq GroupJoin запрос из трех таблиц Products+StockPositions+Producers
+        /// </summary>
+        public static List<StockPositionInfo> PreviewQuery(WegaisDataBundle data)
+        {
+            return data.Products.GroupJoin(data.StockPositions,
+                p => p.AlcCode,
+                s => s.ProductId,
+                (p, s) => new
+                {
+                    p.AlcCode,
+                    p.FullName,
+                    p.Capacity,
+                    p.AlcVolume,
+                    TotalCount = s.Sum(item => item.Quantity),
+                    p.ProducerId
+                })
 
-        //    foreach(StockPosition stockPosition in data.StockPositions)
-        //    {
-        //        StockPositionInfo item = new(
-        //            name: stockPosition.Product.FullName,
-        //            capacity: stockPosition.Product.Capacity,
-        //            alcVolume: stockPosition.Product.AlcVolume,
-        //            producerName: stockPosition.Product.Producer.ShortName,
-        //            count: -1 // Загулшка
-        //            );
-
-        //        result.Add(item); 
-        //    }
-
-        //    return result;
-        //}
-
-        //public static List<StockPositionInfo> PreviewQuery(WegaisDataBundle data)
-        //{
-        //    var result = from s in data.StockPositions
-        //                 join p in data.Products on s.ProductId equals p.ProducerId
-        //                 join pp in data.Producers on p.ProducerId equals pp.ClientRegId
-        //                 select new {
-        //                     name = p.FullName,
-        //                     capacity = p.Capacity,
-        //                     alcVolume = p.AlcVolume,
-        //                     producerName = pp.ShortName,
-        //                     count = s.Quantity.Sum()
-        //                 };
-        //}
+                .Join(data.Producers,
+                product => product.ProducerId,
+                producer => producer.ClientRegId,
+                (product, producer) => new StockPositionInfo
+                (
+                    name: product.FullName,
+                    capacity: product.Capacity,
+                    alcVolume: product.AlcVolume,
+                    producerName: producer.ShortName,
+                    count: product.TotalCount
+                )).ToList();
+        }
     }
 }

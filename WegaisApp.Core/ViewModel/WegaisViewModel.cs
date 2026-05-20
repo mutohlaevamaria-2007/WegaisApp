@@ -18,11 +18,24 @@ namespace WegaisApp.Core.ViewModel
         private WegaisDataBundle _importBundle;
         private bool _isImportedPreviewVisible;
         private string _importInfo;
+        private List<StockPositionInfo> stockPositionsPreview;
 
+        /// <summary>
+        /// Записи, готовые для добавления в БД
+        /// </summary>
         public WegaisDataBundle ImportBundle { get => _importBundle; private set { _importBundle = value; OnPropertyChanged(); } }
+        /// <summary>
+        /// Отображение панели/группы UI превью импорта
+        /// </summary>
         public bool IsImportedPreviewVisible { get => _isImportedPreviewVisible; private set { _isImportedPreviewVisible = value; OnPropertyChanged(); } }
+        /// <summary>
+        /// Данные о таблицах
+        /// </summary>
         public string ImportInfo { get => _importInfo; private set { _importInfo = value; OnPropertyChanged(); } }
-        public ObservableCollection<StockPositionInfo> StockPositionsPreview { get; private set; }
+        /// <summary>
+        /// GroupJoin запрос для превью таблицы
+        /// </summary>
+        public List<StockPositionInfo> StockPositionsPreview { get => stockPositionsPreview; private set { stockPositionsPreview = value; OnPropertyChanged(); } }
         public RelayCommand SaveImportCommand => new(_ => SaveImport());
         #endregion
 
@@ -50,6 +63,7 @@ namespace WegaisApp.Core.ViewModel
         {
             ImportBundle = ParseXmlFiles(files);
             IsImportedPreviewVisible = true;
+            StockPositionsPreview = StockPositionInfo.PreviewQuery(ImportBundle);
             UpdateImportInfo(ImportBundle);
         }
 
@@ -72,11 +86,11 @@ namespace WegaisApp.Core.ViewModel
                 $"Виды продукции: {data.Products.Count}\n" +
                 $"Позиции склада: {data.StockPositions.Count}";
         }
-        
+
         private void SaveImport()
         {
             _messageService.ShowMessage("Изменено записей: " + _dbContext.UnionRange(ImportBundle));
-            ImportBundle = null;
+            //ImportBundle = null;
             IsImportedPreviewVisible = false;
         }
     }

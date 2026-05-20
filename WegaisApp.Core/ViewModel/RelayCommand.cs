@@ -13,7 +13,7 @@ namespace WegaisApp.Core.ViewModel
         //    add { CommandManager.RequerySuggested += value; }
         //    remove { CommandManager.RequerySuggested -= value; }
         //}
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {

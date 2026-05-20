@@ -36,6 +36,13 @@ namespace WegaisApp.Core.DB
             return SaveChanges();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<StockPosition>()
+                .Property(p => p.Quantity) // Конвентарция в REAL для удобного поиска и т.д в СУБД
+                .HasConversion<double>();
+        }
+
         /// <summary>
         /// Вставить уникальные записи
         /// </summary>

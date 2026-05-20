@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WegaisApp.Core.ViewModel;
 
 namespace WegaisApp.WPF
 {
@@ -19,6 +20,32 @@ namespace WegaisApp.WPF
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new WegaisViewModel(new WindowsMessageService());
         }
+
+        #region Drag&Drop
+        // Изменение курсора
+        public void DropRegion_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effects = DragDropEffects.Copy;
+            else
+                e.Effects = DragDropEffects.None;
+
+            e.Handled = true;
+        }
+        // Парсинг + показ превью таблиц
+        public void DropRegion_Drop(object sender, DragEventArgs e)
+        {
+            // Проверка типа файлов
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Извлечение файлов
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                WegaisViewModel viewModel = (WegaisViewModel)DataContext;
+                viewModel.ImportXml(files);
+            }
+        }
+        #endregion
     }
 }

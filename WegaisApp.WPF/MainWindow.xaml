@@ -5,8 +5,97 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WegaisApp.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Grid>
+        <TabControl>
+            <!-- Облать Drag&Drop отчетов XML -->
+            <TabItem x:Name="DropRegion" 
+                    Header="Имопорт данных"
+                     AllowDrop="True"
+                     DragOver="DropRegion_DragOver"
+                     Drop="DropRegion_Drop">
+
+                <Grid Background="#FFC3C3C3">
+                    <TextBlock TextAlignment="Center"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="Gray">
+                               Перетащите отсчеты ЕИГАИС сюда
+                    </TextBlock>
+
+                    <!-- Скрываемая облать предосмотра импортируемых данных -->
+                    <DockPanel x:Name="PreviewContainer"
+                        Visibility="{Binding IsImportedPreviewVisible, Converter={StaticResource BoolToVis}}">
+                        <StackPanel x:Name="ImportInfo"
+                                    DockPanel.Dock="Top">
+                            <TextBlock x:Name="PreviewLabel"
+                                Text="{Binding ImportInfo}"/>
+                            <Button Content = "Импортировать в базу"
+                                Command="{Binding SaveImportCommand}"/>
+                            <Button Content="Отменить"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="PreviewGrid"
+                                DockPanel.Dock="Top"
+                                ItemsSource="{Binding StockPositionsPreview}"
+                                IsReadOnly="True"
+                                AutoGenerateColumns="True"
+                                ScrollViewer.CanContentScroll="True"
+                                VerticalScrollBarVisibility="Visible"
+                                HorizontalScrollBarVisibility="Visible"/>
+                    </DockPanel>
+
+                </Grid>
+            </TabItem>
+
+            <!-- Просмотр БД -->
+            <TabItem Header="Просмотр базы">
+                <Grid Background="#FFE5E5E5">
+                    <TabControl>
+                        <TabItem Header="Производители">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid x:Name="ProducersGrid"
+                                    ItemsSource="{Binding Producers}"
+                                    IsReadOnly="True"
+                                    AutoGenerateColumns="True"
+                                    ScrollViewer.CanContentScroll="True"
+                                    VerticalScrollBarVisibility="Visible"
+                                    HorizontalScrollBarVisibility="Visible"
+                                    />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Виды алкоголя">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid x:Name="ProductsGrid"
+                                    ItemsSource="{Binding Products}"
+                                    IsReadOnly="True"
+                                    AutoGenerateColumns="True"
+                                    ScrollViewer.CanContentScroll="True"
+                                    VerticalScrollBarVisibility="Visible"
+                                    HorizontalScrollBarVisibility="Visible"
+                                    />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Позиции на складе">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid x:Name="StockPositionsGrid"
+                                    ItemsSource="{Binding StockPositions}"
+                                    IsReadOnly="True"
+                                    AutoGenerateColumns="True"
+                                    ScrollViewer.CanContentScroll="True"
+                                    VerticalScrollBarVisibility="Visible"
+                                    HorizontalScrollBarVisibility="Visible"
+                                    />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
