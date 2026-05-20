@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /WegaisApp.WPF/WegaisStock.db
+/WegaisApp.WPF/WegaisStock.db-wal
+/WegaisApp.WPF/WegaisStock.db-shm
