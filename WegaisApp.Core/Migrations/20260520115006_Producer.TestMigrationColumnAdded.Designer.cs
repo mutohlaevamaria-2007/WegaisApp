@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WegaisApp.Core.DB;
 
@@ -10,9 +11,11 @@ using WegaisApp.Core.DB;
 namespace WegaisApp.Core.Migrations
 {
     [DbContext(typeof(WegaisContext))]
-    partial class WegaisContextModelSnapshot : ModelSnapshot
+    [Migration("20260520115006_Producer.TestMigrationColumnAdded")]
+    partial class ProducerTestMigrationColumnAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.24");

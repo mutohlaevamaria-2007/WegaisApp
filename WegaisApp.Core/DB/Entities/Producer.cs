@@ -14,6 +14,7 @@ namespace WegaisApp.Core.DB.Entities
         private int _country;
         private int? _regionCode;
         private string? _adressDescription;
+        private string? _testMigrationColumnAdded;
 
         /// <summary>
         /// PK.<br/>
@@ -57,6 +58,10 @@ namespace WegaisApp.Core.DB.Entities
         /// Текстовое описание адреса или доп. информация
         /// </summary>
         public string? AdressDescription { get => _adressDescription; set { _adressDescription = value; OnPropertyChanged(); } }
+        /// <summary>
+        /// Тест миграции
+        /// </summary>
+        public string? TestMigrationColumnAdded { get => _testMigrationColumnAdded; set { _testMigrationColumnAdded = value; OnPropertyChanged(); } }
 
         /// <summary>
         /// Навигационное свойство для создания FK с помощью EF Core
