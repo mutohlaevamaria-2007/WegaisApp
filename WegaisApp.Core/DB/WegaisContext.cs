@@ -11,7 +11,7 @@ namespace WegaisApp.Core.DB
 
         public WegaisContext()
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
