@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using WegaisApp.Core.DB;
 using WegaisApp.Core.DB.Entities;
+using WegaisApp.Core.WeatherAPIIntegration;
 using WegaisApp.Core.XMLIntegration;
 
 namespace WegaisApp.Core.ViewModel
@@ -18,7 +19,7 @@ namespace WegaisApp.Core.ViewModel
         private WegaisDataBundle _importBundle;
         private bool _isImportedPreviewVisible;
         private string _importInfo;
-        private List<StockPositionInfo> stockPositionsPreview;
+        private List<StockPositionInfo> _stockPositionsPreview;
 
         /// <summary>
         /// Записи, готовые для добавления в БД
@@ -35,8 +36,13 @@ namespace WegaisApp.Core.ViewModel
         /// <summary>
         /// GroupJoin запрос для превью таблицы
         /// </summary>
-        public List<StockPositionInfo> StockPositionsPreview { get => stockPositionsPreview; private set { stockPositionsPreview = value; OnPropertyChanged(); } }
+        public List<StockPositionInfo> StockPositionsPreview { get => _stockPositionsPreview; private set { _stockPositionsPreview = value; OnPropertyChanged(); } }
         public RelayCommand SaveImportCommand => new(_ => SaveImport());
+        #endregion
+
+        #region Текущая погода
+        private WeatherResponse _currentWeather;
+        public WeatherResponse CurrentWeather { get => _currentWeather; private set { _currentWeather = value; OnPropertyChanged(); } }
         #endregion
 
         private readonly IMessageService _messageService;
@@ -57,6 +63,13 @@ namespace WegaisApp.Core.ViewModel
             Products = _dbContext.Products.Local.ToObservableCollection();
             StockPositions = _dbContext.StockPositions.Local.ToObservableCollection();
 
+            _ = InitialAsync();
+        }
+
+        private async Task InitialAsync()
+        {
+            WeatherClient weatherClient = new();
+            CurrentWeather = await weatherClient.GetCurrentWeatherAsync();
         }
 
         public void ImportXml(string[] files)

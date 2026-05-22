@@ -12,7 +12,19 @@
     </Window.Resources>
 
     <Grid>
-        <TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Text="{Binding CurrentWeather.CurrentTemperature}"
+            ToolTip="{Binding CurrentWeather.Info}"
+            TextAlignment="Right"
+            FontSize="15"/>
+        
+        <TabControl Grid.Row="1">
             <!-- Облать Drag&Drop отчетов XML -->
             <TabItem x:Name="DropRegion" 
                     Header="Имопорт данных"
