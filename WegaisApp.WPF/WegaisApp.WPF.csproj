@@ -9,11 +9,57 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="WeatherIcons\clear.png" />
+    <None Remove="WeatherIcons\cloudy.png" />
+    <None Remove="WeatherIcons\fog.png" />
+    <None Remove="WeatherIcons\freezing-rain.png" />
+    <None Remove="WeatherIcons\hail.png" />
+    <None Remove="WeatherIcons\heavy-rain.png" />
+    <None Remove="WeatherIcons\partly-cloudy.png" />
+    <None Remove="WeatherIcons\rain.png" />
+    <None Remove="WeatherIcons\snow.png" />
+    <None Remove="WeatherIcons\thunderstorm.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WegaisApp.Core\WegaisApp.Core.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="WeatherIcons\clear.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\cloudy.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\fog.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\freezing-rain.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\hail.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\heavy-rain.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\partly-cloudy.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\rain.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\snow.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="WeatherIcons\thunderstorm.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
 	</ItemGroup>
 
 </Project>

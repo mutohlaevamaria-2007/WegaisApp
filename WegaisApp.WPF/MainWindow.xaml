@@ -9,21 +9,38 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <local:WeatherCodeToIconPathConverter x:Key="WeatherCodeToIconPath"/>
     </Window.Resources>
 
-    <Grid>
+    <Grid x:Name="MainContainer">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock
-            Grid.Row="0"
-            Text="{Binding CurrentWeather.CurrentTemperature}"
-            ToolTip="{Binding CurrentWeather.Info}"
-            TextAlignment="Right"
-            FontSize="15"/>
-        
+        <Grid x:Name="WeatherContainer"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0"
+                   Source="{Binding CurrentWeather.current.weather_code, Converter = {StaticResource WeatherCodeToIconPath}}"
+                   StretchDirection="DownOnly"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Stretch"
+                   Height="{Binding ActualHeight, ElementName=TemperatureTextBlock}"
+                   Margin="0,10,3,0"/>
+            <TextBlock x:Name="TemperatureTextBlock"
+                       Grid.Column="1"
+                       Text="{Binding CurrentWeather.CurrentTemperature}"
+                       ToolTip="{Binding CurrentWeather.Info}"
+                       TextAlignment="Right"
+                       FontSize="15" 
+                       Margin="0,10,15,0"/>
+        </Grid>
+
         <TabControl Grid.Row="1">
             <!-- Облать Drag&Drop отчетов XML -->
             <TabItem x:Name="DropRegion" 
@@ -36,9 +53,7 @@
                     <TextBlock TextAlignment="Center"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="Gray">
-                               Перетащите отсчеты ЕИГАИС сюда
-                    </TextBlock>
+                               Foreground="Gray"><Run Text="Перетащите отсчеты ЕИГАИС сюда"/></TextBlock>
 
                     <!-- Скрываемая облать предосмотра импортируемых данных -->
                     <DockPanel x:Name="PreviewContainer"
@@ -61,7 +76,6 @@
                                 VerticalScrollBarVisibility="Visible"
                                 HorizontalScrollBarVisibility="Visible"/>
                     </DockPanel>
-
                 </Grid>
             </TabItem>
 
@@ -77,8 +91,7 @@
                                     AutoGenerateColumns="True"
                                     ScrollViewer.CanContentScroll="True"
                                     VerticalScrollBarVisibility="Visible"
-                                    HorizontalScrollBarVisibility="Visible"
-                                    />
+                                    HorizontalScrollBarVisibility="Visible"/>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Виды алкоголя">
@@ -89,8 +102,7 @@
                                     AutoGenerateColumns="True"
                                     ScrollViewer.CanContentScroll="True"
                                     VerticalScrollBarVisibility="Visible"
-                                    HorizontalScrollBarVisibility="Visible"
-                                    />
+                                    HorizontalScrollBarVisibility="Visible"/>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Позиции на складе">
@@ -101,8 +113,7 @@
                                     AutoGenerateColumns="True"
                                     ScrollViewer.CanContentScroll="True"
                                     VerticalScrollBarVisibility="Visible"
-                                    HorizontalScrollBarVisibility="Visible"
-                                    />
+                                    HorizontalScrollBarVisibility="Visible"/>
                             </Grid>
                         </TabItem>
                     </TabControl>
