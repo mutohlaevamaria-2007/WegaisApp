@@ -113,7 +113,14 @@ namespace WegaisApp.Core.ViewModel
         public async Task UpdateCurrentWeather()
         {
             WeatherClient weatherClient = new();
-            CurrentWeather = await weatherClient.GetCurrentWeatherAsync();
+            try
+            {
+                CurrentWeather = await weatherClient.GetCurrentWeatherAsync();
+            }
+            catch(Exception e)
+            {
+                _messageService.ShowMessage($"Ошибка загрузки: {e.Message}");
+            }
         }
     }
 }
