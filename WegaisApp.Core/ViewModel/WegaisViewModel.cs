@@ -89,7 +89,7 @@ namespace WegaisApp.Core.ViewModel
                 }
                 catch (Exception)
                 {
-                    _messageService.ShowMessage($"Неправильный формат файла");
+                    _messageService.ShowMessage($"Неправильный формат файла", "Ошибка", IMessageService.Type.Exclamation);
                     return false;
                 }
             }
@@ -104,7 +104,7 @@ namespace WegaisApp.Core.ViewModel
         }
         private void SaveImport()
         {
-            _messageService.ShowMessage("Изменено записей: " + _dbContext.UnionRange(ImportBundle));
+            _messageService.ShowMessage("Изменено записей: " + _dbContext.UnionRange(ImportBundle), "Сохранено", IMessageService.Type.Information);
             //ImportBundle = null;
             IsImportedPreviewVisible = false;
         }
@@ -119,7 +119,7 @@ namespace WegaisApp.Core.ViewModel
             }
             catch(Exception e)
             {
-                _messageService.ShowMessage($"Ошибка загрузки: {e.Message}");
+                _messageService.ShowMessage($"Ошибка загрузки: {e.Message}", "Ошибка", IMessageService.Type.Exclamation);
             }
         }
     }
