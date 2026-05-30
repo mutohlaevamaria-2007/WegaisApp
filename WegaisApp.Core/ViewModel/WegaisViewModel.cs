@@ -15,7 +15,7 @@ namespace WegaisApp.Core.ViewModel
         public ObservableCollection<StockPosition>? StockPositions { get; private set; }
         #endregion
 
-        #region Импорт данных xml
+        #region Импорт XML
         private WegaisDataBundle _importBundle;
         private bool _isImportedPreviewVisible;
         private string _importInfo;
@@ -62,16 +62,9 @@ namespace WegaisApp.Core.ViewModel
             Producers = _dbContext.Producers.Local.ToObservableCollection();
             Products = _dbContext.Products.Local.ToObservableCollection();
             StockPositions = _dbContext.StockPositions.Local.ToObservableCollection();
-
-            _ = InitialAsync();
         }
 
-        private async Task InitialAsync()
-        {
-            WeatherClient weatherClient = new();
-            CurrentWeather = await weatherClient.GetCurrentWeatherAsync();
-        }
-
+        #region Импорт XML
         public void ImportXml(string[] files)
         {
             if (TryParseXmlFiles(files))
@@ -81,7 +74,6 @@ namespace WegaisApp.Core.ViewModel
                 UpdateImportInfo(ImportBundle);
             }
         }
-
         private bool TryParseXmlFiles(string[] files)
         {
             WegaisDataBundle data = new();
@@ -103,19 +95,24 @@ namespace WegaisApp.Core.ViewModel
             ImportBundle = data;
             return true;
         }
-
         private void UpdateImportInfo(WegaisDataBundle data)
         {
             ImportInfo = $"Производители: {data.Producers.Count}\n" +
                 $"Виды продукции: {data.Products.Count}\n" +
                 $"Позиции склада: {data.StockPositions.Count}";
         }
-
         private void SaveImport()
         {
             _messageService.ShowMessage("Изменено записей: " + _dbContext.UnionRange(ImportBundle));
             //ImportBundle = null;
             IsImportedPreviewVisible = false;
+        }
+        #endregion
+
+        public async Task UpdateCurrentWeather()
+        {
+            WeatherClient weatherClient = new();
+            CurrentWeather = await weatherClient.GetCurrentWeatherAsync();
         }
     }
 }

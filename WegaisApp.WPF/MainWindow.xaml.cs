@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,6 +22,11 @@ namespace WegaisApp.WPF
         {
             InitializeComponent();
             DataContext = new WegaisViewModel(new WindowsMessageService());
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            WegaisViewModel viewModel = (WegaisViewModel)DataContext;
+            await viewModel.UpdateCurrentWeather();
         }
 
         #region Drag&Drop
@@ -47,5 +53,6 @@ namespace WegaisApp.WPF
             }
         }
         #endregion
+
     }
 }

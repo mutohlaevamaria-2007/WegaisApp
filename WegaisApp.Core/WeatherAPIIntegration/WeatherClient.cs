@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
@@ -18,7 +19,7 @@ namespace WegaisApp.Core.WeatherAPIIntegration
         public async Task<WeatherResponse> GetCurrentWeatherAsync(string locationName = "Ufa")
         {
             Coords location = _locations[locationName];
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={location.latitude}&longitude={location.longitude}&current=temperature_2m,weather_code&timezone=auto";
+            string url = $"https://api.open-meteo.com/v1/forecast?latitude={location.latitude.ToString(CultureInfo.InvariantCulture)}&longitude={location.longitude.ToString(CultureInfo.InvariantCulture)}&current=temperature_2m,weather_code&timezone=auto";
             using HttpClient client = new HttpClient();
             return await client.GetFromJsonAsync<WeatherResponse>(url);
         }
