@@ -74,23 +74,34 @@ namespace WegaisApp.Core.ViewModel
 
         public void ImportXml(string[] files)
         {
-            ImportBundle = ParseXmlFiles(files);
-            IsImportedPreviewVisible = true;
-            StockPositionsPreview = StockPositionInfo.PreviewQuery(ImportBundle);
-            UpdateImportInfo(ImportBundle);
+            if (TryParseXmlFiles(files))
+            {
+                IsImportedPreviewVisible = true;
+                StockPositionsPreview = StockPositionInfo.PreviewQuery(ImportBundle);
+                UpdateImportInfo(ImportBundle);
+            }
         }
 
-        private WegaisDataBundle ParseXmlFiles(string[] files)
+        private bool TryParseXmlFiles(string[] files)
         {
             WegaisDataBundle data = new();
             // Обработка пути
             foreach (string filePath in files)
             {
-                Documents documents = WegaisMapper.Deserialize(filePath);
-                var result = WegaisMapper.MapToRows(documents);
-                data.UnionRange(result);
+                try
+                {
+                    Documents documents = WegaisMapper.Deserialize(filePath);
+                    var result = WegaisMapper.MapToRows(documents);
+                    data.UnionRange(result);
+                }
+                catch (Exception)
+                {
+                    _messageService.ShowMessage($"Неправильный формат файла");
+                    return false;
+                }
             }
-            return data;
+            ImportBundle = data;
+            return true;
         }
 
         private void UpdateImportInfo(WegaisDataBundle data)
