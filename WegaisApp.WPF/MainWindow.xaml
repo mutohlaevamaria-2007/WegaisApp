@@ -18,12 +18,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <!-- Погода -->
         <Grid x:Name="WeatherContainer"
               Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
@@ -41,6 +42,13 @@
                        TextAlignment="Right"
                        FontSize="15" 
                        Margin="0,10,15,0"/>
+            <Button Grid.Column="3"
+                    Content="⟳"
+                    FontSize="20" 
+                    BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Command="{Binding UpdateCurrentWeatherCommand}"/>
         </Grid>
 
         <TabControl Grid.Row="1">
@@ -59,13 +67,13 @@
 
                     <!-- Скрываемая облать предосмотра импортируемых данных -->
                     <DockPanel x:Name="PreviewContainer"
-                        Visibility="{Binding IsImportedPreviewVisible, Converter={StaticResource BoolToVis}}">
+                               Visibility="{Binding IsImportedPreviewVisible, Converter={StaticResource BoolToVis}}">
                         <StackPanel x:Name="ImportInfo"
                                     DockPanel.Dock="Top">
                             <TextBlock x:Name="PreviewLabel"
-                                Text="{Binding ImportInfo}"/>
+                                       Text="{Binding ImportInfo}"/>
                             <Button Content = "Импортировать в базу"
-                                Command="{Binding SaveImportCommand}"/>
+                                    Command="{Binding SaveImportCommand}"/>
                             <Button Content="Отменить"/>
                         </StackPanel>
 

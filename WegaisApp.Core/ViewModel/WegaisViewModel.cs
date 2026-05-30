@@ -43,6 +43,7 @@ namespace WegaisApp.Core.ViewModel
         #region Текущая погода
         private WeatherResponse _currentWeather;
         public WeatherResponse CurrentWeather { get => _currentWeather; private set { _currentWeather = value; OnPropertyChanged(); } }
+        public RelayCommand UpdateCurrentWeatherCommand => new(_ => UpdateCurrentWeather());
         #endregion
 
         private readonly IMessageService _messageService;
